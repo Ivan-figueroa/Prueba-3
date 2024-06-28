@@ -46,3 +46,14 @@ with open ("Repositorio.csv", mode="w", newline="") as file:
     writer = csv.writer(file)
     writer.writerow(["nombres","saldos"])
     writer.writerows(clientes)
+    
+#Y por ultimo queda imprimir los resultados
+    
+print(f"Clientes y sus saldos: {clientes}")
+print(f"Saldos bajos: {saldos_bajos}")
+print(f"Saldos medios: {saldos_medios}")
+print(f"Saldos superiores: {saldos_superiores}")
+print(f"Saldo más alto:{saldo_mas_alto(clientes)}")
+print(f"Saldo más bajo:{saldo_mas_bajo(clientes)}")
+print(f"Saldo promedio:{saldo_promedio(clientes)}")
+print(f"Media geometrica del salod:{saldo_media_geometrica(clientes)}")
