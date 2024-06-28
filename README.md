@@ -39,3 +39,9 @@ def saldo_media_geometrica(clientes):
 saldos_bajos = [cliente for cliente in clientes if cliente[1] < 666667]
 saldos_medios = [cliente for cliente in clientes if 666667 <= cliente[1] < 833334]
 saldos_superiores = [cliente for cliente in clientes if cliente[1] >= 833334]
+
+#Aqui almaceno los datos en un repositorio tipo csv 
+with open ("Repositorio.csv", mode="w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerow(["nombres","saldos"])
+    writer.writerows(clientes)
