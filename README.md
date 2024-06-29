@@ -36,9 +36,9 @@ def saldo_media_geometrica(clientes):
     saldo = [cliente[1]for cliente in clientes]
     return geometric_mean(saldos)
 
-saldos_bajos = [cliente for cliente in clientes if cliente[1] < 666667]
-saldos_medios = [cliente for cliente in clientes if 666667 <= cliente[1] < 833334]
-saldos_superiores = [cliente for cliente in clientes if cliente[1] >= 833334]
+saldos_bajos = [cliente for cliente in clientes if cliente[1] < 500000]
+saldos_medios = [cliente for cliente in clientes if 500000 <= cliente[1] < 800000]
+saldos_superiores = [cliente for cliente in clientes if cliente[1] >= 800000]
 
 #Aqui almaceno los datos en un repositorio tipo csv 
 with open ("Repositorio.csv", mode="w", newline="") as file:
