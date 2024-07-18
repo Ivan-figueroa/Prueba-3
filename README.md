@@ -1,58 +1,92 @@
-# Prueba-3
-#ivan figueroa Diaz 
+import random
+import statistics
 
-#Aqui inicio importando lo que usare a lo largo de mi programacion
-import random,csv
-from statistics import geometric_mean
+nombres = ["Juan", "María", "Pedro", "Ana", "Luis", "Sofía", "Carlos", "Laura", "Miguel", "Lucía"]
 
-#Aqui inicio designando las bariables y juntandolas en una dupla
-nombres = ["juan", "pedro", "maria", "marta", "ivan", 
-           "anastacio", "juana", "pepe", "david", "manuel"]
-saldos = [random.randint(500000, 1000000) for _ in range(10)]
+salarios = [random.randint(500000, 1000000) for _ in range(len(nombres))]
 
-#Aqui ire definiendo los diferentes saldos y sus promedios
-clientes = list(zip(nombres, saldos))
-def saldo_mas_alto(clientes):
-    max_saldo = clientes[0]
-    for cliente in clientes:
-        if cliente[1] > max_saldo[1]:
-            max_saldo = cliente
-    return max_saldo
+def afp(salario):
+    afp = 0.12
+    return salario * (1 - salario)
 
+def salud(salario):
+    salud = 0.07
+    return salario * (1 - salario)
 
-def saldo_mas_bajo(clientes):
-    min_saldo = clientes[0]
-    for cliente in clientes:
-        if cliente[1] < min_saldo[1]:
-            min_saldo = cliente
-    return min_saldo
+def liquido(salario):
+    liquido = 0.19
+    return salario * (1 - salario)
+
+def mostrar_menu():
+    print("----- Menú -----")
+    print("1. Ver saldos ")
+    print("2. Ver saldos más bajos, altos y medios")
+    print("3. Ver promedio de sueldos")
+    print("4. Ver media geométrica de sueldos")
+    print("5. Salir")
 
 
-def saldo_promedio(clientes):
-    total_saldo = sum(cliente[1] for cliente in clientes)
-    return total_saldo / len(clientes)
+def saldos_bajos_altos_medios(salarios):
+    salarios_ordenados = sorted(salarios)
+    minimo = salarios_ordenados[0]
+    maximo = salarios_ordenados[-1]
+    medio = salarios_ordenados[len(salarios_ordenados) // 2]
+    return minimo, maximo, medio
 
-def saldo_media_geometrica(clientes):
-    saldo = [cliente[1]for cliente in clientes]
-    return geometric_mean(saldos)
 
-saldos_bajos = [cliente for cliente in clientes if cliente[1] < 500000]
-saldos_medios = [cliente for cliente in clientes if 500000 <= cliente[1] < 800000]
-saldos_superiores = [cliente for cliente in clientes if cliente[1] >= 800000]
+def media_geometrica(salarios):
+    if len(salarios) == 0:
+        return None
+    producto = 1
+    for salario in salarios:
+        producto *= salario
+    return producto ** (1 / len(salarios))
 
-#Aqui almaceno los datos en un repositorio tipo csv 
-with open ("Repositorio.csv", mode="w", newline="") as file:
-    writer = csv.writer(file)
-    writer.writerow(["nombres","saldos"])
-    writer.writerows(clientes)
 
-#Y por ultimo queda imprimir los resultados    
-print(f"Clientes y sus saldos: {clientes}")
-print(f"Saldos bajos: {saldos_bajos}")
-print(f"Saldos medios: {saldos_medios}")
-print(f"Saldos superiores: {saldos_superiores}")
-print(f"Saldo más alto:{saldo_mas_alto(clientes)}")
-print(f"Saldo más bajo:{saldo_mas_bajo(clientes)}")
-print(f"Saldo promedio:{saldo_promedio(clientes)}")
+def main():
+    while True:
+        mostrar_menu()
+        opcion = input("Seleccione una opción (1-5): ")
+        
+        if opcion == "1":
+            print("Clasificar sueldos:")
+            for i in range(len(nombres)):
+                nombre = nombres[i]
+                salario = salarios[i]
+                print(f"nombre empleado salario")
+                print(f"{nombre}:      ${salario}")
+            input("Presione Enter para continuar...")
+        
+        elif opcion == "2":
+            print("Saldos con descuento aplicado afp (12%):")
+            for i in range(len(nombres)):
+                nombre = nombres[i]
+                print(f" Nombre    Salario     Ds salud  Ds afp  Liquido")
+                print(f"{nombre}: {salario}  {salud}    {afp}   {liquido}")
+            input("Presione Enter para continuar...")
+        
+        elif opcion == "3":
+            minimo, maximo, medio = saldos_bajos_altos_medios(salarios)
+            print(f"Saldos más bajos, altos y medios:")
+            print(f"Saldos más bajos: ${minimo}")
+            print(f"Saldos más altos: ${maximo}")
+            print(f"Saldo medio: ${medio}")
+            input("Presione Enter para continuar...")
+            
+        elif opcion == "4":
+            media_geom = media_geometrica(salarios)
+            if media_geom:
+                print(f"Media geométrica de sueldos: ${media_geom:.2f}")
+            else:
+                print("No se puede calcular la media geométrica de una lista vacía.")
+            input("Presione Enter para continuar...")
+        
+        elif opcion == "5":
+            print("Saliendo del programa...")
+            print("Desarrollado por Ivan Figueroa")
+            print("RUT: 21.733.391-1")
+            
+if __name__ == "__main__":
+    main()
 print(f"Media geometrica del salod:{saldo_media_geometrica(clientes)}")
     
